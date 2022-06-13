@@ -60,20 +60,21 @@ final class AndreoMultiConnDoctrineMigrationsExtension extends Extension
                 ->addMethodCall('setMetadataStorageConfiguration', [$tableStorageConfiguration])
             ;
 
-            $dependencyFactoryAlias = $connectionConfig['dependency_factory_alias'];
-            $dependencyFactoryAlias = $dependencyFactoryAlias ?? "andreo.multi_conn_doctrine_migrations.dependency_factory.$connectionName";
-
             $container
-                ->register($dependencyFactoryAlias, DependencyFactory::class)
+                ->register("andreo.multi_conn_doctrine_migrations.dependency_factory.$connectionName", DependencyFactory::class)
                 ->setFactory([DependencyFactory::class, 'fromConnection'])
                 ->addArgument(new Definition(ExistingConfiguration::class, [$configurationDef]))
                 ->addArgument(new Definition(ExistingConnection::class, [$connectionRef]))
                 ->setPublic(false)
             ;
 
+            if (null !== $dependencyFactoryAlias = $connectionConfig['dependency_factory_alias']) {
+                $container->setAlias($dependencyFactoryAlias, "andreo.multi_conn_doctrine_migrations.dependency_factory.$connectionName");
+            }
+
             $container
                 ->register("andreo.multi_conn_doctrine_migrations.command.generate.$connectionName", GenerateCommand::class)
-                ->addArgument(new Reference($dependencyFactoryAlias))
+                ->addArgument(new Reference("andreo.multi_conn_doctrine_migrations.dependency_factory.$connectionName"))
                 ->addTag('console.command', [
                     'command' => "andreo:multi-conn-doctrine-migrations:generate:$connectionName",
                 ])
@@ -82,7 +83,7 @@ final class AndreoMultiConnDoctrineMigrationsExtension extends Extension
 
             $container
                 ->register("andreo.multi_conn_doctrine_migrations.command.migrate.$connectionName", MigrateCommand::class)
-                ->addArgument(new Reference($dependencyFactoryAlias))
+                ->addArgument(new Reference("andreo.multi_conn_doctrine_migrations.dependency_factory.$connectionName"))
                 ->addTag('console.command', [
                     'command' => "andreo:multi-conn-doctrine-migrations:migrate:$connectionName",
                 ])
@@ -91,7 +92,7 @@ final class AndreoMultiConnDoctrineMigrationsExtension extends Extension
 
             $container
                 ->register("andreo.multi_conn_doctrine_migrations.command.execute.$connectionName", ExecuteCommand::class)
-                ->addArgument(new Reference($dependencyFactoryAlias))
+                ->addArgument(new Reference("andreo.multi_conn_doctrine_migrations.dependency_factory.$connectionName"))
                 ->addTag('console.command', [
                     'command' => "andreo:multi-conn-doctrine-migrations:execute:$connectionName",
                 ])
