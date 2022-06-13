@@ -6,7 +6,7 @@ This simple bundle provides basic doctrine migrations commands for the multiple 
 
 ```yaml
 
-andreo_multi_connection_migrations:
+andreo_multi_conn_doctrine_migrations:
     table_storage:
         table_name: doctrine_migration_versions
         version_column_name: version

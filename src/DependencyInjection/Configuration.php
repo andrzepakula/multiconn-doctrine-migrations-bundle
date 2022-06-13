@@ -12,7 +12,7 @@ final class Configuration implements ConfigurationInterface
 {
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('andreo_multi_connection_migrations');
+        $treeBuilder = new TreeBuilder('andreo_multi_conn_doctrine_migrations');
         /** @var ArrayNodeDefinition $rootNode */
         $rootNode = $treeBuilder->getRootNode();
 
