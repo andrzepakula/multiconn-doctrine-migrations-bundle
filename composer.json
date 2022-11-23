@@ -1,6 +1,6 @@
 {
     "name": "andreo/multiconn-doctrine-migrations-bundle",
-    "description": "This bundle provides basic doctrine migrations command for the multiple connections.",
+    "description": "Doctrine migrations for multiple connections.",
     "keywords": [
         "doctrine-migrations"
     ],
@@ -22,7 +22,7 @@
     },
     "require-dev": {
         "matthiasnoback/symfony-dependency-injection-test": "^4.3",
-        "phpstan/phpstan": "1.7.x-dev",
+        "phpstan/phpstan": "^1.7",
         "phpunit/phpunit": "^9.4",
         "roave/security-advisories": "dev-latest"
     },
@@ -31,9 +31,11 @@
     },
     "autoload": {
         "psr-4": {
-            "Andreo\\MultiConnDoctrineMigrationsBundle\\": "src/",
-            "Tests\\": "tests/"
-        }
+            "Andreo\\MultiConnDoctrineMigrationsBundle\\": ""
+        },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
     },
     "minimum-stability": "dev"
 }

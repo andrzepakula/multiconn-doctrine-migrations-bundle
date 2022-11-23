@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Tests\Config;
+namespace Andreo\MultiConnDoctrineMigrationsBundle\Tests;
 
 use Andreo\MultiConnDoctrineMigrationsBundle\DependencyInjection\AndreoMultiConnDoctrineMigrationsExtension;
 use Matthias\SymfonyDependencyInjectionTest\PhpUnit\AbstractExtensionTestCase;
 
-final class DefaultConfigExtensionTest extends AbstractExtensionTestCase
+final class ConfigExtensionTest extends AbstractExtensionTestCase
 {
     /**
      * @test

@@ -43,6 +43,8 @@ final class Configuration implements ConfigurationInterface
                     ?->end()
                 ->end()
                 ->arrayNode('connections')
+                    ->normalizeKeys(false)
+                    ->useAttributeAsKey('name')
                     ->arrayPrototype()
                         ->children()
                             ->arrayNode('migrations_paths')
